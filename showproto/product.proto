@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package go.micro.service.product;
+
+service Product {
+  rpc AddProduct(ProductInfo) returns (ResponseProduct) {}
+}
+
+message  ProductInfo {
+  int64 id = 1;
+  string product_name = 2;
+}
+
+message ResponseProduct {
+  int64 product_id = 1;
+}

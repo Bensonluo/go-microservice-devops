@@ -15,9 +15,8 @@ type IUserRepository interface {
 	FindAll() ([]model.User, error)
 }
 
-
 func NewUserRepository(db *gorm.DB) IUserRepository {
-	return &UserRepository{mysqlDb:db}
+	return &UserRepository{mysqlDb: db}
 }
 
 type UserRepository struct {
@@ -28,7 +27,7 @@ func (u *UserRepository) InitTable() error {
 	return u.mysqlDb.CreateTable(&model.User{}).Error
 }
 
-func (u *UserRepository) FindUserByName(name string ) (user *model.User, err error) {
+func (u *UserRepository) FindUserByName(name string) (user *model.User, err error) {
 	user = &model.User{}
 	return user, u.mysqlDb.Where("user_name = ?", name).Find(user).Error
 }

@@ -13,7 +13,6 @@ type IUserDataService interface {
 	UpdateUser(user *model.User, isChangePwd bool) (err error)
 	FindUserByName(string) (*model.User, error)
 	CheckPwd(userName string, pwd string) (isOk bool, err error)
-
 }
 
 type UserDataService struct {
@@ -44,11 +43,11 @@ func (u *UserDataService) AddUser(user *model.User) (userID int64, err error) {
 	return u.UserRepository.CreatUser(user)
 }
 
-func (u *UserDataService)DeleteUser(userID int64) error {
+func (u *UserDataService) DeleteUser(userID int64) error {
 	return u.UserRepository.DeleteUserByID(userID)
 }
 
-func  (u *UserDataService) UpdateUser(user *model.User, isChangedPwd bool) (err error) {
+func (u *UserDataService) UpdateUser(user *model.User, isChangedPwd bool) (err error) {
 	if isChangedPwd {
 		pwdByte, err := GeneratePassword(user.HashPassword)
 		if err != nil {
@@ -60,11 +59,11 @@ func  (u *UserDataService) UpdateUser(user *model.User, isChangedPwd bool) (err 
 	return u.UserRepository.UpdateUser(user)
 }
 
-func (u *UserDataService)FindUserByName(userName string) (user *model.User, err error) {
+func (u *UserDataService) FindUserByName(userName string) (user *model.User, err error) {
 	return u.UserRepository.FindUserByName(userName)
 }
 
-func (u *UserDataService)CheckPwd(userName string, pwd string) (isOk bool, err error) {
+func (u *UserDataService) CheckPwd(userName string, pwd string) (isOk bool, err error) {
 	user, err := u.UserRepository.FindUserByName(userName)
 	if err != nil {
 		return false, err
